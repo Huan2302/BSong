@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="war" name="BSong:war">
+    <output-path>$PROJECT_DIR$/target</output-path>
+    <properties id="maven-jee-properties">
+      <options>
+        <module>BSong</module>
+        <packaging>war</packaging>
+      </options>
+    </properties>
+    <root id="archive" name="BSong-1.0-SNAPSHOT.war">
+      <element id="artifact" artifact-name="BSong:war exploded" />
+    </root>
+  </artifact>
+</component>
