@@ -1,4 +1,4 @@
-package util;
+package com.bsong.util;
 
 import java.io.IOException;
 
