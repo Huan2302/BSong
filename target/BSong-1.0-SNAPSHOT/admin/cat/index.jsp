@@ -21,6 +21,14 @@
             }
         %>
         <%
+            if(request.getParameter("del")!=null){
+                String msg = request.getParameter("del");
+                if ("1".equals(msg)){
+                    out.print("<span>Xóa thành công</span>");
+                }
+            }
+        %>
+        <%
             if(request.getParameter("msg")!=null){
                 String msg = request.getParameter("msg");
                 if ("1".equals(msg)){

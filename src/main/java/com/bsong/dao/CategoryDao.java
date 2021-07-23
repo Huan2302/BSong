@@ -27,4 +27,8 @@ public class CategoryDao extends AbstractDao{
         update(sql,cat.getName(),cat.getId());
     }
 
+    public void del(int id){
+        String sql = "DELETE FROM categories WHERE id = ?";
+        update(sql,id);
+    }
 }
