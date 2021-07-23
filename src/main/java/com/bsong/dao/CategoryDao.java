@@ -10,4 +10,21 @@ public class CategoryDao extends AbstractDao{
         String sql = "SELECT * FROM categories ORDER BY id DESC";
         return query(sql,new CategoryMapper());
     }
+
+    public Long addCat(CategoryModel categoryModel){
+        String sql = "INSERT INTO categories(name) VALUES (?)";
+        return insert(sql,categoryModel.getName());
+    }
+
+    public CategoryModel findId(int id){
+        String sql = "SELECT * FROM categories WHERE id = ?";
+        List<CategoryModel> categories = query(sql,new CategoryMapper(),id);
+        return categories.isEmpty() ? null : categories.get(0);
+    }
+
+    public void updateCat(CategoryModel cat){
+        String sql = "UPDATE categories SET name = ? WHERE id = ?";
+        update(sql,cat.getName(),cat.getId());
+    }
+
 }

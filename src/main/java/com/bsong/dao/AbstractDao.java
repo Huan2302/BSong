@@ -55,22 +55,62 @@ public class AbstractDao<T> {
         }
     }
 
-    public int insert(String sql, Object... parameters) {
+//    public int insert(String sql, Object... parameters) {
+//        Connection connection = null;
+//        PreparedStatement statement = null;
+//        int resultSet = 0;
+//        try{
+////            int id = 0;
+//            connection = getConnection();
+////            connection.setAutoCommit(false);
+//            statement = connection.prepareStatement(sql);
+//            setParameter(statement,parameters);
+//            resultSet = statement.executeUpdate();
+////            if(resultSet.next()){
+////                id = resultSet.getInt(1);
+////            }
+////            connection.commit();
+//            return resultSet;
+//        }catch (SQLException e){
+//            if(connection != null){
+//                try {
+//                    connection.rollback();
+//                } catch (SQLException throwables) {
+//                    throwables.printStackTrace();
+//                }
+//            }
+//        }finally {
+//            try{
+//                if (connection != null){
+//                    connection.close();
+//                }
+//                if (statement != null){
+//                    statement.close();
+//                }
+//            }catch (SQLException e2){
+//                return 0;
+//            }
+//        }
+//        return 0;
+//    }
+
+    public Long insert(String sql, Object... parameters) {
         Connection connection = null;
         PreparedStatement statement = null;
-        int resultSet = 0;
+        ResultSet resultSet = null;
         try{
-//            int id = 0;
+            Long id = null;
             connection = getConnection();
-//            connection.setAutoCommit(false);
-            statement = connection.prepareStatement(sql);
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             setParameter(statement,parameters);
-            resultSet = statement.executeUpdate();
-//            if(resultSet.next()){
-//                id = resultSet.getInt(1);
-//            }
-//            connection.commit();
-            return resultSet;
+            statement.executeUpdate();
+            resultSet = statement.getGeneratedKeys();
+            if(resultSet.next()){
+                id = resultSet.getLong(1);
+            }
+            connection.commit();
+            return id;
         }catch (SQLException e){
             if(connection != null){
                 try {
@@ -87,11 +127,14 @@ public class AbstractDao<T> {
                 if (statement != null){
                     statement.close();
                 }
+                if(resultSet != null){
+                    resultSet.close();
+                }
             }catch (SQLException e2){
-                return 0;
+                return null;
             }
         }
-        return 0;
+        return null;
     }
 
     public void update(String sql, Object... paremeters) {

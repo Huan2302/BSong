@@ -12,6 +12,24 @@
             </div>
         </div>
         <!-- /. ROW  -->
+        <%
+            if(request.getParameter("err")!=null){
+                String msg = request.getParameter("err");
+                if ("1".equals(msg)){
+                    out.print("<span>Không có mục này </span>");
+                }
+            }
+        %>
+        <%
+            if(request.getParameter("msg")!=null){
+                String msg = request.getParameter("msg");
+                if ("1".equals(msg)){
+                    out.print("<span>Thêm thành công</span>");
+                }else if ("2".equals(msg)){
+                    out.print("<span>Sửa thành công</span>");
+                }
+            }
+        %>
         <hr />
         <div class="row">
             <div class="col-md-12">
@@ -21,7 +39,7 @@
                         <div class="table-responsive">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <a href="" class="btn btn-success btn-md">Thêm</a>
+                                    <a href="<%=request.getContextPath()%>/admin/cat/add" class="btn btn-success btn-md">Thêm</a>
                                 </div>
                                 <div class="col-sm-6" style="text-align: right;">
                                     <form method="post" action="">
