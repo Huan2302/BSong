@@ -1,4 +1,4 @@
-package com.bsong.controller.admin;
+package com.bsong.controller.admin.cat;
 
 import com.bsong.dao.CategoryDao;
 import com.bsong.model.CategoryModel;

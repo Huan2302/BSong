@@ -1,4 +1,4 @@
-package com.bsong.controller.admin;
+package com.bsong.controller.admin.cat;
 
 import com.bsong.dao.CategoryDao;
 
@@ -21,6 +21,6 @@ public class DelCatController extends HttpServlet {
         }
 
         new CategoryDao().del(id);
-        resp.sendRedirect(req.getContextPath()+"/admin/cats?del=1");
+        resp.sendRedirect(req.getContextPath()+"/admin/cats");
     }
 }

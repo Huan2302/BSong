@@ -1,6 +1,6 @@
-package com.bsong.controller.admin;
+package com.bsong.controller.admin.contact;
 
-import com.bsong.dao.CategoryDao;
+import com.bsong.dao.ContactDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,14 +9,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-@WebServlet("/admin/cats")
-public class IndexCatController extends HttpServlet {
+@WebServlet(value = "/admin/contacts")
+public class IndexContactController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("html/text");
         resp.setCharacterEncoding("UTF-8");
 
-        req.setAttribute("categories",new CategoryDao().findAll());
-        req.getRequestDispatcher("/admin/cat/index.jsp").forward(req,resp);
+        req.setAttribute("listcontact",new ContactDao().findAll());
+        req.getRequestDispatcher("/admin/contact/index.jsp").forward(req,resp);
     }
 }
