@@ -7,7 +7,7 @@ import java.util.List;
 
 public class ContactDao extends AbstractDao{
     public List<ContactModel> findAll(){
-        String sql = "SELECT * FROM contacts";
+        String sql = "SELECT * FROM contacts ORDER BY id DESC";
         return query(sql,new ContactMapper());
     }
 
