@@ -1,8 +1,6 @@
 package com.bsong.controller.admin.user;
 
-import com.bsong.dao.CategoryDao;
-import com.bsong.dao.UserDao;
-import com.bsong.model.CategoryModel;
+import com.bsong.dao.impl.UserDao;
 import com.bsong.model.UserModel;
 
 import javax.servlet.ServletException;

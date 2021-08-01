@@ -17,6 +17,8 @@
                 String msg = request.getParameter("err");
                 if ("1".equals(msg)){
                     out.print("<span>Không có mục này </span>");
+                }else if ("3".equals(msg)){
+                    out.print("<span>Xóa không thành công</span>");
                 }
             }
         %>
@@ -35,6 +37,8 @@
                     out.print("<span>Thêm thành công</span>");
                 }else if ("2".equals(msg)){
                     out.print("<span>Sửa thành công</span>");
+                }else if ("3".equals(msg)){
+                    out.print("<span>Xóa thành công</span>");
                 }
             }
         %>

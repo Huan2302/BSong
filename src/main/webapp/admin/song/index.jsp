@@ -1,5 +1,7 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+﻿<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.bsong.model.SongModel" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ include file="/teamplate/admin/inc/header.jsp" %>
 <%@ include file="/teamplate/admin/inc/leftbar.jsp" %>
 <div id="page-wrapper">
@@ -19,7 +21,7 @@
                         <div class="table-responsive">
                             <div class="row">
                                 <div class="col-sm-6">
-                                    <a href="" class="btn btn-success btn-md">Thêm</a>
+                                    <a href="<%=request.getContextPath()%>/admin/song/add" class="btn btn-success btn-md">Thêm</a>
                                 </div>
                                 <div class="col-sm-6" style="text-align: right;">
                                     <form method="post" action="">
@@ -42,45 +44,29 @@
                                     </tr>
                                 </thead>
                                 <tbody>
+                                <%
+                                    if (request.getAttribute("songs")!=null){
+                                        ArrayList<SongModel> list =(ArrayList<SongModel>) request.getAttribute("songs");
+                                        for (SongModel item:list){
+                                %>
+
                                     <tr>
-                                        <td>1</td>
-                                        <td class="center">Đổi thay</td>
-                                        <td class="center">Nhạc Pop</td>
-                                        <td class="center">2</td>
+                                        <td><%=item.getId()%></td>
+                                        <td class="center"><%=item.getName()%></td>
+                                        <td class="center"><%=item.getCat_name().getName()%></td>
+                                        <td class="center"><%=item.getCounter()%></td>
                                         <td class="center">
-											<img width="200px" height="200px" src="<%=request.getContextPath()%>/teamplate/admin/assets/img/doi-thay.jpg" alt="Đổi thay"/>
+											<img width="200px" height="200px" src="<%=request.getContextPath()%>/teamplate/admin/assets/img/<%=item.getPicture()%>" alt="<%=item.getName()%>"/>
                                         </td>
                                         <td class="center">
-                                            <a href="" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
-                                            <a href="" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
-                                        </td>
-                                    </tr>
-									<tr>
-                                        <td>2</td>
-                                        <td class="center">Only Love</td>
-                                        <td class="center">Nhạc Ngoại</td>
-                                        <td class="center">5</td>
-                                        <td class="center">
-											<img width="200px" height="200px" src="<%=request.getContextPath()%>/teamplate/admin/assets/img/only-love.jpg" alt="Only Love"/>
-                                        </td>
-                                        <td class="center">
-                                            <a href="" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
-                                            <a href="" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
+                                            <a href="<%=request.getContextPath()%>/admin/song/edit?id=<%=item.getId()%>" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
+                                            <a href="<%=request.getContextPath()%>/admin/song/del?id=<%=item.getId()%>" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
                                         </td>
                                     </tr>
-									<tr>
-                                        <td>3</td>
-                                        <td class="center">Nơi ấy con tìm về</td>
-                                        <td class="center">Nhạc Pop</td>
-                                        <td class="center">3</td>
-                                        <td class="center">
-											<img width="200px" height="200px" src="<%=request.getContextPath()%>/teamplate/admin/assets/img/noi-ay-con-tim-ve.jpg" alt="Nơi ấy con tìm về"/>
-                                        </td>
-                                        <td class="center">
-                                            <a href="" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
-                                            <a href="" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
-                                        </td>
-                                    </tr>
+                                <%
+                                        }
+                                    }
+                                %>
                                 </tbody>
                             </table>
                             <div class="row">

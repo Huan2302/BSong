@@ -1,5 +1,10 @@
+<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.bsong.model.CategoryModel" %>
+<%@ page import="com.bsong.dao.impl.CategoryDao" %>
+<%@ page import="com.bsong.model.SongModel" %>
+<%@ page import="com.bsong.dao.impl.SongDao" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+         pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <div class="searchform">
   <form id="formsearch" name="formsearch" method="post" action="#">
     <span>
@@ -13,11 +18,20 @@
   <h2 class="star">Danh mục bài hát</h2>
   <div class="clr"></div>
   <ul class="sb_menu">
-    <li><a href="#">Nhạc trẻ</a></li>
-    <li><a href="#">Nhạc trữ tình</a></li>
-    <li><a href="#">Rock Việt</a></li>
-    <li><a href="#">Nhạc Trịnh</a></li>
-    <li><a href="#">Hip Hop Việt</a></li>
+    <%
+      ArrayList<CategoryModel> listCat = (ArrayList<CategoryModel>) new CategoryDao().findAll();
+      if (listCat.size()>0){
+        for (CategoryModel item : listCat){
+    %>
+    <li><a href="<%=request.getContextPath()%>/cat?id=<%=item.getId()%>"><%=item.getName()%></a></li>
+    <%
+        }
+      }else{
+    %>
+    <li><p>Chưa có danh mục bài hát</p></li>
+    <%
+      }
+    %>
   </ul>
 </div>
 
@@ -25,17 +39,21 @@
   <h2 class="star"><span>Bài hát mới</span></h2>
   <div class="clr"></div>
   <ul class="ex_menu">
-    <li><a href="#">Mùa Đã Xa (Single)</a><br />
-      Donec libero. Suspendisse bibendum</li>
-    <li><a href="#">Chúng Ta Là Bạn Bè</a><br />
-      Phasellus suscipit, leo a pharetra</li>
-    <li><a href="#">Có Một Người Để Yêu</a><br />
-      Tellus eleifend magna eget</li>
-    <li><a href="#">Chuyện tình Lan và Điệp</a><br />
-      Curabitur vel urna in tristique</li>
-    <li><a href="#">Xanh tươi Việt Nam</a><br />
-      Cras id urna orbi tincidunt orci ac</li>
-    <li><a href="#">Tuổi hồng</a><br />
-      purus nec placerat bibendum</li>
+    <%
+      ArrayList<SongModel> listSong = (ArrayList<SongModel>) new SongDao().findAll(6);
+      if (listSong.size()>0){
+        for (SongModel item : listSong){
+    %>
+    <li><a href="<%=request.getContextPath()%>/detail?id=<%=item.getId()%>"><%=item.getName()%></a><br />
+      <%=item.getPreview_text()%></li>
+    <%
+      }
+    }else{
+    %>
+    <li><p>Chưa có bài hát mới</p></li>
+    <%
+      }
+    %>
+
   </ul>
 </div>

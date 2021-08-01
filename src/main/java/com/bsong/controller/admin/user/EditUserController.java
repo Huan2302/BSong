@@ -1,6 +1,6 @@
 package com.bsong.controller.admin.user;
 
-import com.bsong.dao.UserDao;
+import com.bsong.dao.impl.UserDao;
 import com.bsong.model.UserModel;
 
 import javax.servlet.ServletException;
@@ -36,9 +36,6 @@ public class EditUserController extends HttpServlet {
 
         UserModel user = new UserModel();
         user.setId(Integer.parseInt(req.getParameter("id")));
-        if (!req.getParameter("name").equals("")){
-            user.setName(req.getParameter("name"));
-        }
         if (!req.getParameter("password").equals("")){
             user.setPass(req.getParameter("password"));
         }

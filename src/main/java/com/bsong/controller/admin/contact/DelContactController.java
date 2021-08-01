@@ -1,6 +1,6 @@
 package com.bsong.controller.admin.contact;
 
-import com.bsong.dao.ContactDao;
+import com.bsong.dao.impl.ContactDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

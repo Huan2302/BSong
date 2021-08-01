@@ -36,7 +36,7 @@
 
                                     <div class="form-group">
                                         <label for="name">Tên người dùng</label>
-                                        <input type="text" id="name" value="<%=user.getName()%>" name="name" class="form-control" />
+                                        <input type="text" id="name" value="<%=user.getName()%>" name="name" class="form-control" disabled />
                                     </div>
                                     <div class="form-group">
                                         <label for="name">Mật khẩu</label>

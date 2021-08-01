@@ -1,8 +1,6 @@
-package com.bsong.dao;
+package com.bsong.dao.impl;
 
-import com.bsong.mapper.CategoryMapper;
 import com.bsong.mapper.UserMapper;
-import com.bsong.model.CategoryModel;
 import com.bsong.model.UserModel;
 
 import java.util.List;
@@ -24,8 +22,8 @@ public class UserDao extends AbstractDao{
     }
 
     public void updateUser(UserModel user){
-        String sql = "UPDATE users SET username = ?, password = ?, fullname = ?  WHERE id = ?";
-        update(sql,user.getName(),user.getPass(),user.getFullName(),user.getId());
+        String sql = "UPDATE users SET password = ?, fullname = ?  WHERE id = ?";
+        update(sql,user.getPass(),user.getFullName(),user.getId());
     }
 
     public void del(int id){

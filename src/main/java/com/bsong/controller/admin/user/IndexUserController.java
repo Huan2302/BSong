@@ -1,6 +1,6 @@
 package com.bsong.controller.admin.user;
 
-import com.bsong.dao.UserDao;
+import com.bsong.dao.impl.UserDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

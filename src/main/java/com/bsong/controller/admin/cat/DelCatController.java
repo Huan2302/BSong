@@ -1,6 +1,6 @@
 package com.bsong.controller.admin.cat;
 
-import com.bsong.dao.CategoryDao;
+import com.bsong.dao.impl.CategoryDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -19,8 +19,10 @@ public class DelCatController extends HttpServlet {
         }catch (NumberFormatException e){
             resp.sendRedirect(req.getContextPath()+"/admin/cats");
         }
-
-        new CategoryDao().del(id);
-        resp.sendRedirect(req.getContextPath()+"/admin/cats");
+        if (new CategoryDao().del(id)>0){
+            resp.sendRedirect(req.getContextPath()+"/admin/cats?msg=3");
+        }else {
+            resp.sendRedirect(req.getContextPath()+"/admin/cats?err=3");
+        }
     }
 }

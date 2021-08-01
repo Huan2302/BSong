@@ -13,7 +13,7 @@
                 <a id="category" href="<%=request.getContextPath()%>/admin/cats"><i class="fa fa-list fa-3x"></i> Quản lý danh mục</a>
             </li>
             <li>
-                <a id="song" href="<%=request.getContextPath()%>/admin/contact"><i class="fa fa-music fa-3x"></i> Quản lý bài hát</a>
+                <a id="song" href="<%=request.getContextPath()%>/admin/songs"><i class="fa fa-music fa-3x"></i> Quản lý bài hát</a>
             </li>
             <li>
                 <a id="user" href="<%=request.getContextPath()%>/admin/users"><i class="fa fa-user fa-3x"></i> Quản lý người dùng</a>

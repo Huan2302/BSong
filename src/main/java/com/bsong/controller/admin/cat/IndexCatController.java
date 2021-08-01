@@ -1,6 +1,6 @@
 package com.bsong.controller.admin.cat;
 
-import com.bsong.dao.CategoryDao;
+import com.bsong.dao.impl.CategoryDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;

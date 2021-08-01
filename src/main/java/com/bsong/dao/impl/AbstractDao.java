@@ -1,14 +1,14 @@
-package com.bsong.dao;
+package com.bsong.dao.impl;
 
+import com.bsong.dao.GenericDao;
 import com.bsong.mapper.RowMapper;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AbstractDao<T> {
+public class AbstractDao<T> implements GenericDao<T> {
     public Connection getConnection(){
-
         try {
             Class.forName("com.mysql.jdbc.Driver");
             String url = "jdbc:mysql://localhost:3306/bsong";
@@ -21,6 +21,7 @@ public class AbstractDao<T> {
         }
     }
 
+    @Override
     public <T> List<T> query(String sql, RowMapper<T> rowMapper, Object... parameters) {
         List<T> results = new ArrayList<>();
         Connection connection = null;
@@ -55,45 +56,43 @@ public class AbstractDao<T> {
         }
     }
 
-//    public int insert(String sql, Object... parameters) {
-//        Connection connection = null;
-//        PreparedStatement statement = null;
-//        int resultSet = 0;
-//        try{
-////            int id = 0;
-//            connection = getConnection();
-////            connection.setAutoCommit(false);
-//            statement = connection.prepareStatement(sql);
-//            setParameter(statement,parameters);
-//            resultSet = statement.executeUpdate();
-////            if(resultSet.next()){
-////                id = resultSet.getInt(1);
-////            }
-////            connection.commit();
-//            return resultSet;
-//        }catch (SQLException e){
-//            if(connection != null){
-//                try {
-//                    connection.rollback();
-//                } catch (SQLException throwables) {
-//                    throwables.printStackTrace();
-//                }
-//            }
-//        }finally {
-//            try{
-//                if (connection != null){
-//                    connection.close();
-//                }
-//                if (statement != null){
-//                    statement.close();
-//                }
-//            }catch (SQLException e2){
-//                return 0;
-//            }
-//        }
-//        return 0;
-//    }
+    @Override
+    public int delete(String sql, Object... parameters) {
+        Connection connection = null;
+          PreparedStatement statement = null;
+        int resultSet = 0;
+        try{
+            connection = getConnection();
+            connection.setAutoCommit(false);
+            statement = connection.prepareStatement(sql);
+            setParameter(statement,parameters);
+            resultSet = statement.executeUpdate();
+            connection.commit();
+            return resultSet;
+        }catch (SQLException e){
+            if(connection != null){
+                try {
+                    connection.rollback();
+                } catch (SQLException throwables) {
+                    throwables.printStackTrace();
+                }
+            }
+        }finally {
+            try{
+                if (connection != null){
+                    connection.close();
+                }
+                if (statement != null){
+                    statement.close();
+                }
+            }catch (SQLException e2){
+                return 0;
+            }
+        }
+        return 0;
+    }
 
+    @Override
     public Long insert(String sql, Object... parameters) {
         Connection connection = null;
         PreparedStatement statement = null;
@@ -101,8 +100,10 @@ public class AbstractDao<T> {
         try{
             Long id = null;
             connection = getConnection();
+            //kiểm soát trạng thái giao dịch(transaction)
             connection.setAutoCommit(false);
             statement = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            //set parameter
             setParameter(statement,parameters);
             statement.executeUpdate();
             resultSet = statement.getGeneratedKeys();
@@ -137,6 +138,7 @@ public class AbstractDao<T> {
         return null;
     }
 
+    @Override
     public void update(String sql, Object... paremeters) {
         Connection connection = null;
         PreparedStatement statement = null;

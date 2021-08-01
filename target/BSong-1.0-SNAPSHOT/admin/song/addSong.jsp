@@ -1,5 +1,7 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
+﻿<%@ page import="java.util.ArrayList" %>
+<%@ page import="com.bsong.model.CategoryModel" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <%@ include file="/teamplate/admin/inc/header.jsp" %>
 <%@ include file="/teamplate/admin/inc/leftbar.jsp" %>
 <div id="page-wrapper">
@@ -16,9 +18,12 @@
                 <!-- Form Elements -->
                 <div class="panel panel-default">
                     <div class="panel-body">
+                        <%
+                            ArrayList<CategoryModel> cat = (ArrayList<CategoryModel>) request.getAttribute("categories");
+                        %>
                         <div class="row">
                             <div class="col-md-12">
-                                <form role="form" method="post" enctype="multipart/form-data" id="form">
+                                <form action="" role="form" method="post" enctype="multipart/form-data" id="form">
                                     <div class="form-group">
                                         <label for="name">Tên bài hát</label>
                                         <input type="text" id="name" value="" name="name" class="form-control" />
@@ -26,24 +31,28 @@
                                     <div class="form-group">
                                         <label for="category">Danh mục bài hát</label>
                                         <select id="category" name="category" class="form-control">
-	                                        <option value="1">Option 1</option>
-											<option value="2">Option 2</option>
-											<option value="3" selected>Option 3</option>
-											<option value="4">Option 4</option>
-											<option value="5">Option 5</option>
+                                            <%
+                                                if (cat != null && cat.size()>0){
+                                                    for (CategoryModel item:cat){
+                                            %>
+	                                            <option value="<%=item.getId()%>"><%=item.getName()%></option>
+                                            <%
+                                                    }
+                                                }
+                                            %>
                                         </select>
                                     </div>
                                     <div class="form-group">
                                         <label for="picture">Hình ảnh</label>
-                                        <input type="file" name="picture" />
+                                        <input type="file" value="" name="picture" />
                                     </div>
                                     <div class="form-group">
                                         <label for="preview">Mô tả</label>
-                                        <textarea id="preview" class="form-control" rows="3" name="preview"></textarea>
+                                        <textarea id="preview"  class="form-control" rows="3" name="preview_text"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="detail">Chi tiết</label>
-                                        <textarea id="detail" class="form-control" id="detail" rows="5" name="detail"></textarea>
+                                        <textarea id="detail" class="form-control" id="detail" rows="5" name="detail_text"></textarea>
                                     </div>
                                     <button type="submit" name="submit" class="btn btn-success btn-md">Thêm</button>
                                 </form>
