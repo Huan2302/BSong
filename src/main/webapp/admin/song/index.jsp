@@ -45,8 +45,8 @@
                                 </thead>
                                 <tbody>
                                 <%
-                                    if (request.getAttribute("songs")!=null){
-                                        ArrayList<SongModel> list =(ArrayList<SongModel>) request.getAttribute("songs");
+                                    ArrayList<SongModel> list =(ArrayList<SongModel>) request.getAttribute("songs");
+                                    if (list!=null){
                                         for (SongModel item:list){
                                 %>
 
@@ -69,6 +69,11 @@
                                 %>
                                 </tbody>
                             </table>
+                            <%
+                                int getTotalPage = (Integer) request.getAttribute("getTotalPage");
+                                int currentPage = (Integer) request.getAttribute("currentPage");
+                                if (list != null && list.size() >0){
+                            %>
                             <div class="row">
                                 <div class="col-sm-6">
                                     <div class="dataTables_info" id="dataTables-example_info" style="margin-top:27px">Hiển thị từ 1 đến 5 của 24 truyện</div>
@@ -77,16 +82,28 @@
                                     <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                         <ul class="pagination">
                                             <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Trang trước</a></li>
-                                            <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="">1</a></li>
-											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="">2</a></li>
-											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="">3</a></li>
-											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="">4</a></li>
-											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="">5</a></li>
+                                            <%
+                                                String active = "";
+                                                for (int i =1; i<=getTotalPage;i++){
+                                                    if(currentPage==i){
+                                                        active = "active";
+                                                    }else {
+                                                        active ="";
+                                                    }
+                                            %>
+                                            <li class="paginate_button <%=active%>" aria-controls="dataTables-example" tabindex="0"><a href="<%=request.getContextPath()%>/admin/songs?page=<%=i%>"><%=i%></a></li>
+                                            <%
+                                                }
+                                            %>
                                             <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Trang tiếp</a></li>
                                         </ul>
                                     </div>
                                 </div>
                             </div>
+                            <%
+                                }
+                            %>
+
                         </div>
 
                     </div>

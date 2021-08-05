@@ -1,6 +1,7 @@
 package com.bsong.controller.admin.song;
 
 import com.bsong.dao.impl.SongDao;
+import com.bsong.util.AuthUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,10 @@ import java.io.IOException;
 public class DelSongController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!AuthUtil.checkLogin(req,resp)){
+            resp.sendRedirect(req.getContextPath()+"/login");
+            return;
+        }
         int id = 0;
         try {
             id = Integer.parseInt(req.getParameter("id"));

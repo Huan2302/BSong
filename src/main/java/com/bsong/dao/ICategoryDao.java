@@ -10,4 +10,5 @@ public interface ICategoryDao extends GenericDao<CategoryModel> {
     CategoryModel findId(int id);
     void updateCat(CategoryModel cat);
     int del(int id);
+    List<CategoryModel> search(String search);
 }

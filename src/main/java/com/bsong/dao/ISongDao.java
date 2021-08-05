@@ -13,4 +13,6 @@ public interface ISongDao extends GenericDao<SongModel> {
     void upSong(SongModel song, int id);
     List<SongModel> findAll(int id);
     List<SongModel> findRelatedSong(SongModel song,int limit);
+    int getTotalItem();
+    List<SongModel> findAllPagination(int offset);
 }

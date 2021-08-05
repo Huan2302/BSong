@@ -3,6 +3,7 @@ package com.bsong.controller.admin.song;
 import com.bsong.dao.impl.CategoryDao;
 import com.bsong.dao.impl.SongDao;
 import com.bsong.model.SongModel;
+import com.bsong.util.AuthUtil;
 import com.bsong.util.FileUtil;
 
 import javax.servlet.ServletException;
@@ -23,6 +24,10 @@ public class AddSongController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!AuthUtil.checkLogin(req,resp)){
+            resp.sendRedirect(req.getContextPath()+"/login");
+            return;
+        }
         resp.setContentType("html/text");
         resp.setCharacterEncoding("UTF-8");
 
@@ -32,6 +37,10 @@ public class AddSongController extends HttpServlet {
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!AuthUtil.checkLogin(req,resp)){
+            resp.sendRedirect(req.getContextPath()+"/login");
+            return;
+        }
         req.setCharacterEncoding("UTF-8");
 
         SongModel song = new SongModel();

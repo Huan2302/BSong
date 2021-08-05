@@ -1,6 +1,7 @@
 package com.bsong.controller.admin.contact;
 
 import com.bsong.dao.impl.ContactDao;
+import com.bsong.util.AuthUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,6 +15,10 @@ public class DelContactController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!AuthUtil.checkLogin(req,resp)){
+            resp.sendRedirect(req.getContextPath()+"/login");
+            return;
+        }
         resp.setContentType("html/text");
         resp.setCharacterEncoding("UTF-8");
 

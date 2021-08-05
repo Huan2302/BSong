@@ -10,6 +10,22 @@
     </div>
     <div class="article">
       <h2>Gửi liên hệ đến chúng tôi</h2>
+      <%
+        if(request.getParameter("msg")!=null){
+          String msg = request.getParameter("msg");
+          if ("1".equals(msg)){
+            out.print("<span>Gửi liên hệ thành công </span>");
+          }
+        }
+      %>
+      <%
+        if(request.getParameter("err")!=null){
+          String err = request.getParameter("err");
+          if ("1".equals(err)){
+            out.print("<span>Gửi liên hệ không thành công </span>");
+          }
+        }
+      %>
       <div class="clr"></div>
       <form action="" method="post" id="sendemail">
         <ol>

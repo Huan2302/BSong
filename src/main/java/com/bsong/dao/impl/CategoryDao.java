@@ -37,4 +37,11 @@ public class CategoryDao extends AbstractDao<CategoryModel> implements ICategory
         String sql = "DELETE FROM categories WHERE id = ?";
         return delete(sql,id);
     }
+
+    @Override
+    public List<CategoryModel> search(String search) {
+        String text = "%"+search+"%";
+        String sql = "select * from categories where name like ?";
+        return query(sql,new CategoryMapper(),text);
+    }
 }

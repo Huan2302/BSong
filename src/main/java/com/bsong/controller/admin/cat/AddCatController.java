@@ -2,6 +2,7 @@ package com.bsong.controller.admin.cat;
 
 import com.bsong.dao.impl.CategoryDao;
 import com.bsong.model.CategoryModel;
+import com.bsong.util.AuthUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,12 +15,20 @@ import java.io.IOException;
 public class AddCatController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!AuthUtil.checkLogin(req,resp)){
+            resp.sendRedirect(req.getContextPath()+"/login");
+            return;
+        }
         req.setCharacterEncoding("UTF-8");
         req.getRequestDispatcher("/admin/cat/add.jsp").forward(req,resp);
     }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!AuthUtil.checkLogin(req,resp)){
+            resp.sendRedirect(req.getContextPath()+"/login");
+            return;
+        }
         req.setCharacterEncoding("UTF-8");
         resp.setContentType("html/text");
         resp.setCharacterEncoding("UTF-8");

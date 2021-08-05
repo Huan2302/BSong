@@ -30,4 +30,10 @@ public class UserDao extends AbstractDao{
         String sql = "DELETE FROM users WHERE id = ?";
         update(sql,id);
     }
+
+    public UserModel checkLogin(UserModel user){
+        String sql = "SELECT * FROM users WHERE username = ? AND password = ?";
+        List<UserModel> login = query(sql,new UserMapper(),user.getName(),user.getPass());
+        return login.isEmpty() ? null : login.get(0);
+    }
 }

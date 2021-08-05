@@ -1,6 +1,7 @@
 package com.bsong.controller.admin.user;
 
 import com.bsong.dao.impl.UserDao;
+import com.bsong.util.AuthUtil;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -13,6 +14,10 @@ import java.io.IOException;
 public class IndexUserController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        if (!AuthUtil.checkLogin(req,resp)){
+            resp.sendRedirect(req.getContextPath()+"/login");
+            return;
+        }
         resp.setContentType("html/text");
         resp.setCharacterEncoding("UTF-8");
 

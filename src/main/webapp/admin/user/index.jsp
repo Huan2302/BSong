@@ -18,6 +18,8 @@
                 String msg = request.getParameter("err");
                 if ("1".equals(msg)){
                     out.print("<span>Không có mục này </span>");
+                }else if ("4".equals(msg)){
+                    out.print("<span>Bạn không phải Admin </span>");
                 }
             }
         %>
@@ -74,16 +76,34 @@
                                 <%
                                     if (request.getAttribute("users")!=null){
                                         ArrayList<UserModel> list = (ArrayList<UserModel>) request.getAttribute("users");
+                                        UserModel userLogin = (UserModel) session.getAttribute("userLogin");
                                         for (UserModel item:list){
                                 %>
                                 <tr>
                                     <td><%=item.getId()%></td>
                                     <td class="center"><%=item.getName()%></td>
                                     <td class="center"><%=item.getFullName()%></td>
-                                    <td class="center">
-                                        <a href="<%=request.getContextPath()%>/admin/user/edit?id=<%=item.getId()%>" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
-                                        <a href="<%=request.getContextPath()%>/admin/user/del?id=<%=item.getId()%>" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
-                                    </td>
+                                        <%
+                                            if ("admin".equals(userLogin.getName())){
+                                        %>
+                                        <td class="center">
+                                            <a href="<%=request.getContextPath()%>/admin/user/edit?id=<%=item.getId()%>" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
+                                            <a href="<%=request.getContextPath()%>/admin/user/del?id=<%=item.getId()%>" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
+                                        </td>
+                                        <%
+                                            }else {
+                                        %>
+                                        <td class="center">
+                                            <%
+                                                if (userLogin.getId() == item.getId()){
+                                            %>
+                                            <a href="<%=request.getContextPath()%>/admin/user/edit?id=<%=item.getId()%>" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
+                                        </td>
+                                        <%
+                                                }
+                                            }
+                                        %>
+
                                 </tr>
                                 <%
                                         }
