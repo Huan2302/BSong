@@ -3,13 +3,13 @@
 </div>
 <!-- /. WRAPPER  -->
 <!-- SCRIPTS -AT THE BOTOM TO REDUCE THE LOAD TIME-->
-<!-- JQUERY -->
-<script src="/teamplate/admin/assets/js/jquery-3.2.1.js"></script>
 <!-- BOOTSTRAP SCRIPTS -->
-<script src="/teamplate/admin/assets/js/bootstrap.min.js"></script>
+<script src="<%=request.getContextPath()%>/teamplate/admin/assets/js/bootstrap.min.js"></script>
 <!-- METISMENU SCRIPTS -->
-<script src="/teamplate/admin/assets/js/jquery.metisMenu.js"></script>
+<script src="<%=request.getContextPath()%>/teamplate/admin/assets/js/jquery.metisMenu.js"></script>
 <!-- CUSTOM SCRIPTS -->
-<script src="/teamplate/admin/assets/js/custom.js"></script>
+<script src="<%=request.getContextPath()%>/teamplate/admin/assets/js/custom.js"></script>
+<%--&lt;%&ndash;Pagination&ndash;%&gt;--%>
+<%--<script src="<%=request.getContextPath()%>/teamplate/admin/assets/js/jquery.twbsPagination.js" type="text/javascript"></script>--%>
 </body>
 </html>

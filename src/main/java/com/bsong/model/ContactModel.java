@@ -1,6 +1,6 @@
 package com.bsong.model;
 
-public class ContactModel extends AbstractModel{
+public class ContactModel extends AbstractModel<ContactModel>{
     private String email;
     private String website;
     private String message;

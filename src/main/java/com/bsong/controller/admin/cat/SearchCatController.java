@@ -13,10 +13,6 @@ import java.io.IOException;
 public class SearchCatController extends HttpServlet {
     private CategoryDao categoryDao = new CategoryDao();
 
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

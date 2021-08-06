@@ -1,6 +1,6 @@
 package com.bsong.model;
 
-public class UserModel extends AbstractModel{
+public class UserModel extends AbstractModel<UserModel>{
     private String pass;
     private String fullName;
 

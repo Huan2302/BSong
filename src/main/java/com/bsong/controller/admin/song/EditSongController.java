@@ -32,7 +32,7 @@ public class EditSongController extends HttpServlet {
             resp.sendRedirect(req.getContextPath()+"/admin/songs");
         }
         SongModel song = new SongDao().findId(id);
-        req.setAttribute("categories",new CategoryDao().findAll());
+        req.setAttribute("categories",new CategoryDao().findAll(null,null));
 
         if (song != null){
             req.setAttribute("song",song);

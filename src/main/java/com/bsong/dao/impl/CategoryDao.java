@@ -8,9 +8,14 @@ import java.util.List;
 
 public class CategoryDao extends AbstractDao<CategoryModel> implements ICategoryDao {
     @Override
-    public List<CategoryModel> findAll(){
-        String sql = "SELECT * FROM categories ORDER BY id DESC";
-        return query(sql,new CategoryMapper());
+    public List<CategoryModel> findAll(Integer offset, Integer limit){
+        StringBuffer sql = new StringBuffer("SELECT * FROM categories ORDER BY id DESC ");
+        if (offset != null & limit != null){
+            sql.append("LIMIT ?,?");
+            return query(sql.toString(),new CategoryMapper(),offset,limit);
+        }else {
+            return query(sql.toString(),new CategoryMapper());
+        }
     }
 
     @Override
@@ -43,5 +48,11 @@ public class CategoryDao extends AbstractDao<CategoryModel> implements ICategory
         String text = "%"+search+"%";
         String sql = "select * from categories where name like ?";
         return query(sql,new CategoryMapper(),text);
+    }
+
+    @Override
+    public int getTotalItem() {
+        String sql = "SELECT count(*) from categories";
+        return count(sql);
     }
 }

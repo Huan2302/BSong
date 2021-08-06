@@ -15,6 +15,10 @@
     <link href="<%=request.getContextPath()%>/teamplate/admin/assets/css/custom.css" rel="stylesheet" />
     <!-- GOOGLE FONTS-->
     <link href='http://fonts.googleapis.com/css?family=Open+Sans' rel='stylesheet' type='text/css' />
+    <!-- JQUERY -->
+    <script src="<%=request.getContextPath()%>/teamplate/admin/assets/js/jquery-3.2.1.js"></script>
+    <%--Pagination--%>
+    <script src="<%=request.getContextPath()%>/teamplate/admin/assets/js/jquery.twbsPagination.js" type="text/javascript"></script>
 </head>
 
 <body>

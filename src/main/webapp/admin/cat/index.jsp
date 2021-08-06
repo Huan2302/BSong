@@ -43,7 +43,8 @@
             }
         %>
         <hr />
-        <div class="row">
+
+            <div class="row">
             <div class="col-md-12">
                 <!-- Advanced Tables -->
                 <div class="panel panel-default">
@@ -62,54 +63,51 @@
                                 </div>
                             </div>
 
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
+                            <form action="<%=request.getContextPath()%>/admin/cats" id="formSubmit" method="GET">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
 
 
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Tên danh mục</th>
-                                        <th width="160px">Chức năng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <%
-                                    if (request.getAttribute("categories")!=null){
-                                        ArrayList<CategoryModel> list = (ArrayList<CategoryModel>) request.getAttribute("categories");
-                                        for (CategoryModel item:list){
-                                %>
-                                    <tr>
-                                        <td><%=item.getId()%></td>
-                                        <td class="center"><%=item.getName()%></td>
-                                        <td class="center">
-                                            <a href="<%=request.getContextPath()%>/admin/cat/edit?id=<%=item.getId()%>" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
-                                            <a href="<%=request.getContextPath()%>/admin/cat/del?id=<%=item.getId()%>" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
-                                        </td>
-                                    </tr>
+                                        <tr>
+                                            <th>ID</th>
+                                            <th>Tên danh mục</th>
+                                            <th width="160px">Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
                                     <%
-                                            }
-                                        }
+                                        if (request.getAttribute("categories")!=null){
+                                            CategoryModel cat = (CategoryModel) request.getAttribute("categories");
+                                            ArrayList<CategoryModel> list = (ArrayList<CategoryModel>) cat.getListResult();
+                                            for (CategoryModel item:list){
                                     %>
-                                </tbody>
-                            </table>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="dataTables_info" id="dataTables-example_info" style="margin-top:27px">Hiển thị từ 1 đến 5 của 24 truyện</div>
-                                </div>
-                                <div class="col-sm-6" style="text-align: right;">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                                        <ul class="pagination">
-                                            <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Trang trước</a></li>
-                                            <li class="paginate_button active" aria-controls="dataTables-example" tabindex="0"><a href="">1</a></li>
-											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="">2</a></li>
-											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="">3</a></li>
-											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="">4</a></li>
-											<li class="paginate_button" aria-controls="dataTables-example" tabindex="0"><a href="">5</a></li>
-                                            <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Trang tiếp</a></li>
-                                        </ul>
+                                        <tr>
+                                            <td><%=item.getId()%></td>
+                                            <td class="center"><%=item.getName()%></td>
+                                            <td class="center">
+                                                <a href="<%=request.getContextPath()%>/admin/cat/edit?id=<%=item.getId()%>" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
+                                                <a href="<%=request.getContextPath()%>/admin/cat/del?id=<%=item.getId()%>" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
+                                            </td>
+                                        </tr>
+                                        <%
+                                                }
+                                            }
+                                        %>
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="dataTables_info" id="dataTables-example_info" style="margin-top:27px">Hiển thị từ 1 đến 5 của 24 truyện</div>
+                                    </div>
+                                    <div class="col-sm-6" style="text-align: right;">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                            <ul class="pagination" id="pagination"></ul>
+                                            <input type="hidden" value="" id="page" name="page"/>
+                                            <input type="hidden" value="" id="maxPageItem" name="maxPageItem"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
+                            </form>
                         </div>
 
                     </div>
@@ -117,8 +115,29 @@
                 <!--End Advanced Tables -->
             </div>
         </div>
+
     </div>
 </div>
+<script type="text/javascript">
+    var totalPages = ${categories.totalPage};
+    var currentPage = ${categories.page};
+    var visiblePages = ${categories.maxPageItem};
+    var limit = 4;
+    $(function () {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages: totalPages,
+            visiblePages: 5,
+            startPage: currentPage,
+            onPageClick: function (event, page) {
+                if (currentPage != page){
+                    $('#page').val(page);
+                    $('#maxPageItem').val(limit);
+                    $('#formSubmit').submit();
+                }
+            }
+        });
+    });
+</script>
 <script>
     document.getElementById("category").classList.add('active-menu');
 </script>

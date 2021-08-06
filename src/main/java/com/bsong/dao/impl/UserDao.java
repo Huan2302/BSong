@@ -5,7 +5,7 @@ import com.bsong.model.UserModel;
 
 import java.util.List;
 
-public class UserDao extends AbstractDao{
+public class UserDao extends AbstractDao<UserDao>{
     public List<UserModel> findAll(){
         String sql = "SELECT * FROM users ORDER BY id DESC";
         return query(sql,new UserMapper());

@@ -2,7 +2,7 @@ package com.bsong.model;
 
 import java.sql.Timestamp;
 
-public class SongModel extends AbstractModel{
+public class SongModel extends AbstractModel<SongModel>{
     private String preview_text;
     private String detail_text;
     private Timestamp date_create;

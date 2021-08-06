@@ -5,10 +5,11 @@ import com.bsong.model.CategoryModel;
 import java.util.List;
 
 public interface ICategoryDao extends GenericDao<CategoryModel> {
-    List<CategoryModel> findAll();
+    List<CategoryModel> findAll(Integer offset, Integer limit);
     Long addCat(CategoryModel categoryModel);
     CategoryModel findId(int id);
     void updateCat(CategoryModel cat);
     int del(int id);
     List<CategoryModel> search(String search);
+    int getTotalItem();
 }
