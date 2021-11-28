@@ -6,7 +6,7 @@
     <div id="page-inner">
         <div class="row">
             <div class="col-md-12">
-                <h2>Thêm danh mục</h2>
+                <h2>Thêm thương hiệu</h2>
             </div>
         </div>
         <!-- /. ROW  -->
@@ -28,7 +28,7 @@
                             <div class="col-md-12">
                                 <form action="" role="form" method="post" id="form">
                                     <div class="form-group">
-                                        <label for="name">Tên danh mục</label>
+                                        <label for="name">Tên thương hiệu</label>
                                         <input type="text" id="name" value="" name="name" class="form-control" />
                                     </div>
 

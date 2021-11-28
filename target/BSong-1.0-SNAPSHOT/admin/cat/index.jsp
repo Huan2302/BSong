@@ -8,7 +8,7 @@
     <div id="page-inner">
         <div class="row">
             <div class="col-md-12">
-                <h2>Quản lý bài hát</h2>
+                <h2>Quản lý thương hiệu</h2>
             </div>
         </div>
         <!-- /. ROW  -->
@@ -55,9 +55,9 @@
                                     <a href="<%=request.getContextPath()%>/admin/cat/add" class="btn btn-success btn-md">Thêm</a>
                                 </div>
                                 <div class="col-sm-6" style="text-align: right;">
-                                    <form method="post" action="<%=request.getContextPath()%>/admin/cat/search">
+                                    <form method="post" action="<%=request.getContextPath()%>/admin/cats/search?page=1&maxPageItem=4&sortBy=DESC&sortName=id">
                                         <input type="submit" name="searchs" value="Tìm kiếm" class="btn btn-warning btn-sm" style="float:right" />
-                                        <input type="search" name="search" class="form-control input-sm" placeholder="Nhập tên bài hát" style="float:right; width: 300px;" />
+                                        <input type="search" name="search" class="form-control input-sm" placeholder="Nhập thương hiệu" style="float:right; width: 300px;" />
                                         <div style="clear:both"></div>
                                     </form><br />
                                 </div>
@@ -66,11 +66,9 @@
                             <form action="<%=request.getContextPath()%>/admin/cats" id="formSubmit" method="GET">
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
-
-
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Tên danh mục</th>
+                                            <th>ID &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/xulysort?sortBy=<%=request.getParameter("sortBy")%>&sortName=id&page=<%=request.getParameter("page")%>&maxPageItem=<%=request.getParameter("maxPageItem")%>&name=cname"><i class="fa fa-sort"></i></a></th>
+                                            <th>Tên thương hiệu &nbsp;&nbsp;<a href="<%=request.getContextPath()%>/xulysort?sortBy=<%=request.getParameter("sortBy")%>&sortName=name&page=<%=request.getParameter("page")%>&maxPageItem=<%=request.getParameter("maxPageItem")%>&name=cname"><i class="fa fa-sort"></i></a></th>
                                             <th width="160px">Chức năng</th>
                                         </tr>
                                     </thead>
@@ -91,19 +89,24 @@
                                         </tr>
                                         <%
                                                 }
-                                            }
                                         %>
+
                                     </tbody>
                                 </table>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="dataTables_info" id="dataTables-example_info" style="margin-top:27px">Hiển thị từ 1 đến 5 của 24 truyện</div>
+                                        <div class="dataTables_info" id="dataTables-example_info" style="margin-top:27px">Hiển thị từ 1 đến <%=cat.getMaxPageItem()%> của <%=cat.getTotalItem()%> thể loại</div>
                                     </div>
+                                    <%
+                                        }
+                                    %>
                                     <div class="col-sm-6" style="text-align: right;">
                                         <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                             <ul class="pagination" id="pagination"></ul>
                                             <input type="hidden" value="" id="page" name="page"/>
                                             <input type="hidden" value="" id="maxPageItem" name="maxPageItem"/>
+                                            <input type="hidden" value="" id="sortBy" name="sortBy"/>
+                                            <input type="hidden" value="" id="sortName" name="sortName"/>
                                         </div>
                                     </div>
                                 </div>
@@ -123,15 +126,19 @@
     var currentPage = ${categories.page};
     var visiblePages = ${categories.maxPageItem};
     var limit = 4;
+    var sortName = "${categories.sortName}";
+    var sortBy = "${categories.sortBy}";
     $(function () {
         window.pagObj = $('#pagination').twbsPagination({
             totalPages: totalPages,
-            visiblePages: 5,
+            visiblePages: 5 ,
             startPage: currentPage,
             onPageClick: function (event, page) {
                 if (currentPage != page){
                     $('#page').val(page);
                     $('#maxPageItem').val(limit);
+                    $('#sortName').val(sortName);
+                    $('#sortBy').val(sortBy);
                     $('#formSubmit').submit();
                 }
             }

@@ -35,12 +35,12 @@
           }else {
               if (request.getAttribute("err")!=null){
                   if (request.getAttribute("err").equals("1")){
-                      out.print("Id danh mục không tồn tại !!!");
+                      out.print("Id thương hiệu không tồn tại !!!");
                   }
               }
       %>
       <div class="article">
-        <h2>Không có bài hát nào</h2>
+        <h2>Không có đồng hồ</h2>
       </div>
       <%
           }

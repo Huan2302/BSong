@@ -8,7 +8,7 @@
     <div id="page-inner">
         <div class="row">
             <div class="col-md-12">
-                <h2>Quản lý bài hát</h2>
+                <h2>Quản lý đồng hồ</h2>
             </div>
         </div>
         <!-- /. ROW  -->
@@ -24,86 +24,70 @@
                                     <a href="<%=request.getContextPath()%>/admin/song/add" class="btn btn-success btn-md">Thêm</a>
                                 </div>
                                 <div class="col-sm-6" style="text-align: right;">
-                                    <form method="post" action="">
-                                        <input type="submit" name="search" value="Tìm kiếm" class="btn btn-warning btn-sm" style="float:right" />
-                                        <input type="search" class="form-control input-sm" placeholder="Nhập tên bài hát" style="float:right; width: 300px;" />
+                                    <form method="post" action="<%=request.getContextPath()%>/admin/songs/search?page=1&maxPageItem=4&sortBy=DESC&sortName=id">
+                                        <input type="submit" name="searchs" value="Tìm kiếm" class="btn btn-warning btn-sm" style="float:right" />
+                                        <input type="search" name="search" class="form-control input-sm" placeholder="Nhập tên đồng hồ" style="float:right; width: 300px;" />
                                         <div style="clear:both"></div>
                                     </form><br />
                                 </div>
                             </div>
+                            <form action="<%=request.getContextPath()%>/admin/songs" id="formSubmit" method="GET">
+                                <table class="table table-striped table-bordered table-hover" id="dataTables-example">
+                                    <thead>
+                                        <tr>
+                                            <th>ID &nbsp;&nbsp; <a href="<%=request.getContextPath()%>/xulysort?sortBy=<%=request.getParameter("sortBy")%>&sortName=id&page=<%=request.getParameter("page")%>&maxPageItem=<%=request.getParameter("maxPageItem")%>&name=sname"><i class="fa fa-sort"></i></a></th>
+                                            <th>Tên đồng hồ &nbsp;&nbsp; <a href="<%=request.getContextPath()%>/xulysort?sortBy=<%=request.getParameter("sortBy")%>&sortName=name&page=<%=request.getParameter("page")%>&maxPageItem=<%=request.getParameter("maxPageItem")%>&name=sname"><i class="fa fa-sort"></i></a> </th>
+                                            <th>Thương hiệu &nbsp;&nbsp; <a href="<%=request.getContextPath()%>/xulysort?sortBy=<%=request.getParameter("sortBy")%>&sortName=cat_id&page=<%=request.getParameter("page")%>&maxPageItem=<%=request.getParameter("maxPageItem")%>&name=sname"><i class="fa fa-sort"></i></a></th>
+                                            <th>Lượt xem &nbsp;&nbsp; <a href="<%=request.getContextPath()%>/xulysort?sortBy=<%=request.getParameter("sortBy")%>&sortName=counter&page=<%=request.getParameter("page")%>&maxPageItem=<%=request.getParameter("maxPageItem")%>&name=sname"><i class="fa fa-sort"></i></a></th>
+                                            <th>Hình ảnh </th>
+                                            <th width="160px">Chức năng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                    <%
+                                        SongModel songModel =(SongModel) request.getAttribute("songs");
+                                        ArrayList<SongModel> list = (ArrayList<SongModel>) songModel.getListResult();
+                                        if (list!=null){
+                                            for (SongModel item:list){
+                                    %>
 
-                            <table class="table table-striped table-bordered table-hover" id="dataTables-example">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>Tên bài hát</th>
-                                        <th>Danh mục</th>
-                                        <th>Lượt đọc</th>
-                                        <th>Hình ảnh</th>
-                                        <th width="160px">Chức năng</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                <%
-                                    ArrayList<SongModel> list =(ArrayList<SongModel>) request.getAttribute("songs");
-                                    if (list!=null){
-                                        for (SongModel item:list){
-                                %>
+                                        <tr>
+                                            <td><%=item.getId()%></td>
+                                            <td class="center"><%=item.getName()%></td>
+                                            <td class="center"><%=item.getCat_name().getName()%></td>
+                                            <td class="center"><%=item.getCounter()%></td>
+                                            <td class="center">
+                                                <img width="200px" height="200px" src="<%=request.getContextPath()%>/teamplate/admin/assets/img/<%=item.getPicture()%>" alt="<%=item.getName()%>"/>
+                                            </td>
+                                            <td class="center">
+                                                <a href="<%=request.getContextPath()%>/admin/song/edit?id=<%=item.getId()%>" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
+                                                <a href="<%=request.getContextPath()%>/admin/song/del?id=<%=item.getId()%>" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
+                                            </td>
+                                        </tr>
+                                    <%
+                                            }
+                                            %>
 
-                                    <tr>
-                                        <td><%=item.getId()%></td>
-                                        <td class="center"><%=item.getName()%></td>
-                                        <td class="center"><%=item.getCat_name().getName()%></td>
-                                        <td class="center"><%=item.getCounter()%></td>
-                                        <td class="center">
-											<img width="200px" height="200px" src="<%=request.getContextPath()%>/teamplate/admin/assets/img/<%=item.getPicture()%>" alt="<%=item.getName()%>"/>
-                                        </td>
-                                        <td class="center">
-                                            <a href="<%=request.getContextPath()%>/admin/song/edit?id=<%=item.getId()%>" title="" class="btn btn-primary"><i class="fa fa-edit "></i> Sửa</a>
-                                            <a href="<%=request.getContextPath()%>/admin/song/del?id=<%=item.getId()%>" title="" class="btn btn-danger"><i class="fa fa-pencil"></i> Xóa</a>
-                                        </td>
-                                    </tr>
-                                <%
+                                    </tbody>
+                                </table>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="dataTables_info" id="dataTables-example_info" style="margin-top:27px">Hiển thị từ 1 đến <%=songModel.getMaxPageItem()%> của <%=songModel.getTotalItem()%> Bài hát</div>
+                                    </div>
+                                    <%
                                         }
-                                    }
-                                %>
-                                </tbody>
-                            </table>
-                            <%
-                                int getTotalPage = (Integer) request.getAttribute("getTotalPage");
-                                int currentPage = (Integer) request.getAttribute("currentPage");
-                                if (list != null && list.size() >0){
-                            %>
-                            <div class="row">
-                                <div class="col-sm-6">
-                                    <div class="dataTables_info" id="dataTables-example_info" style="margin-top:27px">Hiển thị từ 1 đến 5 của 24 truyện</div>
-                                </div>
-                                <div class="col-sm-6" style="text-align: right;">
-                                    <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
-                                        <ul class="pagination">
-                                            <li class="paginate_button previous disabled" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_previous"><a href="#">Trang trước</a></li>
-                                            <%
-                                                String active = "";
-                                                for (int i =1; i<=getTotalPage;i++){
-                                                    if(currentPage==i){
-                                                        active = "active";
-                                                    }else {
-                                                        active ="";
-                                                    }
-                                            %>
-                                            <li class="paginate_button <%=active%>" aria-controls="dataTables-example" tabindex="0"><a href="<%=request.getContextPath()%>/admin/songs?page=<%=i%>"><%=i%></a></li>
-                                            <%
-                                                }
-                                            %>
-                                            <li class="paginate_button next" aria-controls="dataTables-example" tabindex="0" id="dataTables-example_next"><a href="#">Trang tiếp</a></li>
-                                        </ul>
+                                    %>
+                                    <div class="col-sm-6" style="text-align: right;">
+                                        <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                                            <ul class="pagination" id="pagination"></ul>
+                                            <input type="hidden" value="" id="page" name="page"/>
+                                            <input type="hidden" value="" id="maxPageItem" name="maxPageItem"/>
+                                            <input type="hidden" value="" id="sortBy" name="sortBy"/>
+                                            <input type="hidden" value="" id="sortName" name="sortName"/>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
-                            <%
-                                }
-                            %>
-
+                            </form>
                         </div>
 
                     </div>
@@ -113,6 +97,30 @@
         </div>
     </div>
 </div>
+<script type="text/javascript">
+    var totalPages = ${songs.totalPage};
+    var currentPage = ${songs.page};
+    var visiblePages = ${songs.maxPageItem};
+    var limit = 4;
+    var sortName = "${songs.sortName}";
+    var sortBy = "${songs.sortBy}";
+    $(function () {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages: totalPages,
+            visiblePages: 5,
+            startPage: currentPage,
+            onPageClick: function (event, page) {
+                if (currentPage != page){
+                    $('#page').val(page);
+                    $('#maxPageItem').val(limit);
+                    $('#sortName').val(sortName);
+                    $('#sortBy').val(sortBy);
+                    $('#formSubmit').submit();
+                }
+            }
+        });
+    });
+</script>
 <script>
     document.getElementById("song").classList.add('active-menu');
 </script>

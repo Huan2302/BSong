@@ -3,19 +3,32 @@ package com.bsong.dao.impl;
 import com.bsong.dao.ICategoryDao;
 import com.bsong.mapper.CategoryMapper;
 import com.bsong.model.CategoryModel;
+import com.bsong.padding.PageRequest;
 
 import java.util.List;
 
 public class CategoryDao extends AbstractDao<CategoryModel> implements ICategoryDao {
+
     @Override
-    public List<CategoryModel> findAll(Integer offset, Integer limit){
-        StringBuffer sql = new StringBuffer("SELECT * FROM categories ORDER BY id DESC ");
-        if (offset != null & limit != null){
-            sql.append("LIMIT ?,?");
-            return query(sql.toString(),new CategoryMapper(),offset,limit);
-        }else {
-            return query(sql.toString(),new CategoryMapper());
+    public List<CategoryModel> findAll(String search, PageRequest pageble){
+        StringBuffer sql = new StringBuffer("SELECT * FROM categories");
+        if(search != null){
+            String s = "'%"+search+"%'";
+            sql.append(" where name like "+s);
         }
+        if (pageble.getSorter().getSortBy() != null && pageble.getSorter().getSortname() != null){
+            sql.append(" ORDER BY "+pageble.getSorter().getSortname()+" "+pageble.getSorter().getSortBy());
+        }
+        if (pageble.getOffset() != null & pageble.getLimit() != null){
+            sql.append(" LIMIT "+pageble.getOffset()+", "+pageble.getLimit());
+        }
+        return query(sql.toString(),new CategoryMapper());
+    }
+
+    @Override
+    public List<CategoryModel> findAll(){
+        String sql ="SELECT * FROM categories";
+        return query(sql,new CategoryMapper());
     }
 
     @Override
@@ -44,15 +57,12 @@ public class CategoryDao extends AbstractDao<CategoryModel> implements ICategory
     }
 
     @Override
-    public List<CategoryModel> search(String search) {
-        String text = "%"+search+"%";
-        String sql = "select * from categories where name like ?";
-        return query(sql,new CategoryMapper(),text);
-    }
-
-    @Override
-    public int getTotalItem() {
-        String sql = "SELECT count(*) from categories";
-        return count(sql);
+    public int getTotalItem(String search) {
+        StringBuffer sql = new StringBuffer("SELECT count(*) from categories");
+        if (search != null){
+            String s = "'%"+search+"%'";
+            sql.append(" where name like "+s);
+        }
+        return count(sql.toString());
     }
 }

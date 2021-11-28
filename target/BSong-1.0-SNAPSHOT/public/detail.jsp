@@ -13,7 +13,7 @@
       <div class="vnecontent">
         <%=song.getPreview_text()%>
       </div>
-      <img src="<%=request.getContextPath()%>/teamplate/admin/assets/img/<%=song.getPicture()%>" width="600" alt="">
+      <img src="<%=request.getContextPath()%>/teamplate/admin/assets/img/<%=song.getPicture()%>" width="300" alt="">
       <div class="vnecontent">
           <%=song.getDetail_text()%>
       </div>

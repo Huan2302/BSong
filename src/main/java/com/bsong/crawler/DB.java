@@ -1,4 +1,4 @@
-package com.crawler;
+package com.bsong.crawler;
 
 import java.sql.*;
 
@@ -7,7 +7,7 @@ public class DB {
     public DB(){
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            String url = "jdbc:mysql://localhost:3306/baomoi";
+            String url = "jdbc:mysql://localhost:3306/bsong";
             String user = "root";
             String password = "12345678";
             conn = DriverManager.getConnection(url,user,password);

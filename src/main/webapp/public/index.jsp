@@ -4,7 +4,8 @@
 <div class="content_resize">
   <div class="mainbar">
       <%
-        ArrayList<SongModel> list = (ArrayList<SongModel>) request.getAttribute("song");
+          SongModel songs = (SongModel) request.getAttribute("songs");
+          ArrayList<SongModel> list = (ArrayList<SongModel>) songs.getListResult();
         if (list.size() > 0){
             int i=0;
             for (SongModel item:list){
@@ -26,19 +27,57 @@
     </div>
       <%
               }
-          }
+          }else {
       %>
-    <p class="pages"><small>Trang 1 của 5</small>
-    <span>1</span>
-    <a href="">2</a>
-    <a href="">3</a>
-    <a href="">4</a>
-    <a href="">5</a>
-    <a href="#">&raquo;</a></p>
+      <br><br>
+      <h3>Không có bài hát nào</h3>
+      <%
+              }
+      %>
+      <form action="<%=request.getContextPath()%>/home" id="formSubmit" method="get">
+          <div class="row">
+              <div class="col-sm-9" style="text-align: right;">
+                  <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
+                      <ul class="pagination" id="pagination"></ul>
+                      <input type="hidden" value="" id="page" name="page"/>
+                      <input type="hidden" value="" id="maxPageItem" name="maxPageItem"/>
+                      <input type="hidden" value="" id="sortBy" name="sortBy"/>
+                      <input type="hidden" value="" id="sortName" name="sortName"/>
+                  </div>
+              </div>
+          </div>
+      </form>
   </div>
   <div class="sidebar">
       <%@ include file="/teamplate/public/inc/leftbar.jsp" %>
   </div>
   <div class="clr"></div>
 </div>
+<script type="text/javascript">
+    var totalPages = ${songs.totalPage};
+    var currentPage = ${songs.page};
+    var visiblePages = ${songs.maxPageItem};
+    var limit = 4;
+    var sortName = "${songs.sortName}";
+    var sortBy = "${songs.sortBy}";
+    $(function () {
+        window.pagObj = $('#pagination').twbsPagination({
+            totalPages: totalPages,
+            visiblePages: 5,
+            startPage: currentPage,
+            onPageClick: function (event, page) {
+                if (currentPage != page){
+                    $('#page').val(page);
+                    $('#maxPageItem').val(limit);
+                    $('#sortName').val(sortName);
+                    $('#sortBy').val(sortBy);
+                    $('#formSubmit').submit();
+                }
+            }
+        });
+    });
+</script>
+<script>
+    document.getElementById("home").classList.add('active');
+</script>
 <%@ include file="/teamplate/public/inc/footer.jsp" %>

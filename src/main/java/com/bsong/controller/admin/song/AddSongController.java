@@ -31,7 +31,7 @@ public class AddSongController extends HttpServlet {
         resp.setContentType("html/text");
         resp.setCharacterEncoding("UTF-8");
 
-        req.setAttribute("categories",new CategoryDao().findAll(null,null));
+        req.setAttribute("categories",new CategoryDao().findAll());
         req.getRequestDispatcher("/admin/song/addSong.jsp").forward(req,resp);
     }
 

@@ -46,7 +46,7 @@
             <textarea id="message" name="message" rows="8" cols="50"></textarea>
           </li>
           <li>
-            <input type="image" name="imageField" id="imageField" src="/teamplate/public/images/submit.gif" class="send" />
+            <input type="image" name="imageField" id="imageField" src="<%=request.getContextPath()%>/teamplate/public/images/submit.gif" class="send" />
             <div class="clr"></div>
           </li>
         </ol>
@@ -58,4 +58,7 @@
   </div>
   <div class="clr"></div>
 </div>
+<script>
+  document.getElementById("contact").classList.add('active');
+</script>
 <%@ include file="/teamplate/public/inc/footer.jsp" %>

@@ -8,6 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 @WebServlet(value = "/detail")
@@ -25,8 +26,15 @@ public class DetailController extends HttpServlet {
             resp.sendRedirect(req.getContextPath()+"/404");
             return;
         }
-
         SongModel song = songDao.findId(id);
+        HttpSession session = req.getSession();
+        String hasVisitted = (String)session.getAttribute("HasSession" + id);
+        if(hasVisitted == null) {
+            song.setCounter(song.getCounter()+1);
+            songDao.upCounterSong(song,id);
+            session.setAttribute("HasSession" + id, "yes");
+            session.setMaxInactiveInterval(3600);
+        }
         if (song==null){
             resp.sendRedirect(req.getContextPath()+"/404");
             return;

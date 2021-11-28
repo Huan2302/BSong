@@ -28,11 +28,11 @@
                             <div class="col-md-12">
                                 <form action="" role="form" method="post" enctype="multipart/form-data" id="form">
                                     <div class="form-group">
-                                        <label for="name">Tên bài hát</label>
+                                        <label for="name">Tên </label>
                                         <input type="text" id="name" value="<%=song.getName()%>" name="name" class="form-control" />
                                     </div>
                                     <div class="form-group">
-                                        <label for="category">Danh mục bài hát</label>
+                                        <label for="category">Thương hiệu</label>
                                         <select id="category" name="category" class="form-control">
                                             <%
                                                 if (cat != null && cat.size()>0){
@@ -68,15 +68,18 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="detail">Chi tiết</label>
-                                        <textarea id="detail" class="form-control" id="detail" rows="5" name="detail_text"><%=song.getDetail_text()%></textarea>
+                                        <textarea id="detail" class="form-control" rows="10" cols="80" name="detail_text"><%=song.getDetail_text()%></textarea>
                                     </div>
                                     <%
-
                                             }
                                         }
                                     %>
                                     <button type="submit" name="submit" class="btn btn-success btn-md">Sửa</button>
                                 </form>
+                                <script>
+                                    var editor = CKEDITOR.replace('detail');
+                                    CKFinder.setupCKEditor(editor, 'ckfinder/');
+                                </script>
                             </div>
                         </div>
                     </div>

@@ -6,16 +6,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
          pageEncoding="UTF-8" trimDirectiveWhitespaces="true"%>
 <div class="searchform">
-  <form id="formsearch" name="formsearch" method="post" action="#">
+  <form id="formsearch" name="formsearch" method="post" action="<%=request.getContextPath()%>/search?page=1&maxPageItem=4&sortBy=DESC&sortName=name">
     <span>
-    <input name="editbox_search" class="editbox_search" id="editbox_search" maxlength="80" value="Tìm kiếm bài hát" type="text" />
+    <input name="editbox_search" class="editbox_search" id="search" maxlength="80" placeholder="Tìm kiếm đồng hồ" value="" type="text" />
     </span>
     <input name="button_search" src="<%=request.getContextPath()%>/teamplate/public/images/search.jpg" class="button_search" type="image" />
   </form>
 </div>
 <div class="clr"></div>
 <div class="gadget">
-  <h2 class="star">Danh mục bài hát</h2>
+  <h2 class="star">Thương hiệu</h2>
   <div class="clr"></div>
   <ul class="sb_menu">
     <%
@@ -28,7 +28,7 @@
         }
       }else{
     %>
-    <li><p>Chưa có danh mục bài hát</p></li>
+    <li><p>Chưa có thương hiệu</p></li>
     <%
       }
     %>
@@ -36,11 +36,11 @@
 </div>
 
 <div class="gadget">
-  <h2 class="star"><span>Bài hát mới</span></h2>
+  <h2 class="star"><span>Đông hồ mới</span></h2>
   <div class="clr"></div>
   <ul class="ex_menu">
     <%
-      ArrayList<SongModel> listSong = (ArrayList<SongModel>) new SongDao().findAll(6);
+      ArrayList<SongModel> listSong = (ArrayList<SongModel>) new SongDao().findAll(2);
       if (listSong.size()>0){
         for (SongModel item : listSong){
     %>
@@ -50,7 +50,7 @@
       }
     }else{
     %>
-    <li><p>Chưa có bài hát mới</p></li>
+    <li><p>Chưa có đồng hồ mới</p></li>
     <%
       }
     %>

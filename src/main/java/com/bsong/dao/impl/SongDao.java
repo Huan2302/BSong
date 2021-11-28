@@ -1,23 +1,37 @@
 package com.bsong.dao.impl;
 
 import com.bsong.dao.ISongDao;
+import com.bsong.mapper.CategoryMapper;
 import com.bsong.mapper.SongMapper;
+import com.bsong.model.CategoryModel;
 import com.bsong.model.SongModel;
+import com.bsong.padding.PageRequest;
 import com.bsong.util.DefineUtil;
 
 import java.util.List;
 
 public class SongDao extends AbstractDao<SongModel> implements ISongDao {
     @Override
-    public List<SongModel> findAll(){
+    public List<SongModel> findAll(String search,PageRequest pageble){
         StringBuffer sql = new StringBuffer("SELECT s.id AS id,s.name AS name, ");
         sql.append("preview_text, detail_text, date_create,picture," );
         sql.append("counter,cat_id,c.name AS cat_name ");
         sql.append("FROM songs AS s ");
         sql.append("INNER JOIN categories AS c ON s.cat_id = c.id ");
-        sql.append("ORDER BY s.id DESC");
+
+        if (search != null){
+            String s = "'%"+search+"%'";
+            sql.append(" WHERE s.name LIKE "+s);
+        }
+        if (pageble!=null && pageble.getSorter().getSortBy() != null && pageble.getSorter().getSortname() != null){
+            sql.append(" ORDER BY "+pageble.getSorter().getSortname()+" "+pageble.getSorter().getSortBy());
+        }
+        if (pageble!=null && pageble.getOffset() != null & pageble.getLimit() != null){
+            sql.append(" LIMIT "+pageble.getOffset()+", "+pageble.getLimit());
+        }
         return query(sql.toString(),new SongMapper());
     }
+
 
     @Override
     public List<SongModel> findAll(int id){
@@ -84,9 +98,13 @@ public class SongDao extends AbstractDao<SongModel> implements ISongDao {
     }
 
     @Override
-    public int getTotalItem() {
-        String sql = "SELECT count(*) from songs";
-        return count(sql);
+    public int getTotalItem(String search) {
+        StringBuffer sql = new StringBuffer("SELECT count(*) from songs");
+        if (search != null){
+            String s = "'%"+search+"%'";
+            sql.append(" where name like "+s);
+        }
+        return count(sql.toString());
     }
 
     @Override
@@ -98,5 +116,11 @@ public class SongDao extends AbstractDao<SongModel> implements ISongDao {
         sql.append("INNER JOIN categories AS c ON s.cat_id = c.id ");
         sql.append("ORDER BY s.id DESC LIMIT ?,?");
         return query(sql.toString(),new SongMapper(),offset, DefineUtil.NUMBER_PER_PAGE);
+    }
+
+    @Override
+    public void upCounterSong(SongModel song, int id) {
+        String sql = "UPDATE songs SET counter = ? WHERE id = ?";
+        update(sql,song.getCounter(),id);
     }
 }

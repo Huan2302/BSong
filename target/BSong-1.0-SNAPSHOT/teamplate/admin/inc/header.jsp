@@ -19,6 +19,10 @@
     <script src="<%=request.getContextPath()%>/teamplate/admin/assets/js/jquery-3.2.1.js"></script>
     <%--Pagination--%>
     <script src="<%=request.getContextPath()%>/teamplate/admin/assets/js/jquery.twbsPagination.js" type="text/javascript"></script>
+<%--    ckeditor--%>
+    <script src="<%=request.getContextPath()%>/teamplate/admin/assets/ckeditor/ckeditor.js"></script>
+    <%--    ckeditor--%>
+    <script src="<%=request.getContextPath()%>/teamplate/admin/assets/ckfinder/ckfinder.js"></script>
 </head>
 
 <body>
@@ -31,7 +35,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="index.html">VinaEnter Edu</a>
+                <a class="navbar-brand" href="index.html">ADMIN</a>
             </div>
             <div style="color: white;padding: 15px 50px 5px 50px;float: right;font-size: 16px;"> Xin chào, <b>Admin</b> &nbsp; <a href="" class="btn btn-danger square-btn-adjust">Đăng xuất</a> </div>
         </nav>

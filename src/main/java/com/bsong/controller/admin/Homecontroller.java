@@ -17,7 +17,6 @@ public class Homecontroller extends HttpServlet {
             resp.sendRedirect(req.getContextPath()+"/login");
             return;
         }
-
         resp.setContentType("html/text");
         resp.setCharacterEncoding("UTF-8");
         req.getRequestDispatcher("/admin/index.jsp").forward(req,resp);

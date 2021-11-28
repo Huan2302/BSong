@@ -32,7 +32,7 @@ public class EditSongController extends HttpServlet {
             resp.sendRedirect(req.getContextPath()+"/admin/songs");
         }
         SongModel song = new SongDao().findId(id);
-        req.setAttribute("categories",new CategoryDao().findAll(null,null));
+        req.setAttribute("categories",new CategoryDao().findAll());
 
         if (song != null){
             req.setAttribute("song",song);
@@ -62,6 +62,7 @@ public class EditSongController extends HttpServlet {
         song.setName(req.getParameter("name"));
         song.setPreview_text(req.getParameter("preview_text"));
         song.setDetail_text(req.getParameter("detail_text"));
+        System.out.println(song.getDetail_text());
         song.setCat_id(Integer.parseInt(req.getParameter("category")));
         Part filePart = req.getPart("picture");
 

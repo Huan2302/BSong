@@ -1,2 +1,10 @@
-package com.bsong.padding;public interface IPageble {
+package com.bsong.padding;
+
+import com.bsong.sort.Sorter;
+
+public interface IPageble {
+    Integer getPage();
+    Integer getOffset();
+    Integer getLimit();
+    Sorter getSorter();
 }

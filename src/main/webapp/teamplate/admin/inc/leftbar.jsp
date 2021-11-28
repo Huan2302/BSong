@@ -10,10 +10,10 @@
                 <a id="index" href="<%=request.getContextPath()%>/admin"><i class="fa fa-dashboard fa-3x"></i> Trang chủ</a>
             </li>
             <li>
-                <a id="category" href="<%=request.getContextPath()%>/admin/cats?page=1&maxPageItem=4"><i class="fa fa-list fa-3x"></i> Quản lý danh mục</a>
+                <a id="category" href="<%=request.getContextPath()%>/admin/cats?page=1&maxPageItem=4&sortBy=DESC&sortName=id"><i class="fa fa-list fa-3x"></i> Quản lý thương hiệu</a>
             </li>
             <li>
-                <a id="song" href="<%=request.getContextPath()%>/admin/songs"><i class="fa fa-music fa-3x"></i> Quản lý bài hát</a>
+                <a id="song" href="<%=request.getContextPath()%>/admin/songs?page=1&maxPageItem=4&sortBy=DESC&sortName=id"><i class="fa fa-clock-o fa-3x"></i> Quản lý đồng hồ</a>
             </li>
             <li>
                 <a id="user" href="<%=request.getContextPath()%>/admin/users"><i class="fa fa-user fa-3x"></i> Quản lý người dùng</a>

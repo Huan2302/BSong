@@ -25,8 +25,8 @@
                                 </div>
                                 <div class="col-sm-6" style="text-align: right;">
                                     <form method="post" action="">
-                                        <input type="submit" name="search" value="Tìm kiếm" class="btn btn-warning btn-sm" style="float:right" />
-                                        <input type="search" class="form-control input-sm" placeholder="Nhập tên bài hát" style="float:right; width: 300px;" />
+                                        <input type="submit" name="searchs" value="Tìm kiếm" class="btn btn-warning btn-sm" style="float:right" />
+                                        <input type="search" name="search" class="form-control input-sm" placeholder="Nhập tên bài hát" style="float:right; width: 300px;" />
                                         <div style="clear:both"></div>
                                     </form><br />
                                 </div>
@@ -35,11 +35,11 @@
                                 <table class="table table-striped table-bordered table-hover" id="dataTables-example">
                                     <thead>
                                         <tr>
-                                            <th>ID</th>
-                                            <th>Tên bài hát</th>
-                                            <th>Danh mục</th>
-                                            <th>Lượt đọc</th>
-                                            <th>Hình ảnh</th>
+                                            <th>ID &nbsp;&nbsp; <a href="<%=request.getContextPath()%>/xulysort?sortBy=<%=request.getParameter("sortBy")%>&sortName=id&page=<%=request.getParameter("page")%>&maxPageItem=<%=request.getParameter("maxPageItem")%>&name=sname"><i class="fa fa-sort"></i></a></th>
+                                            <th>Tên bài hát &nbsp;&nbsp; <a href="<%=request.getContextPath()%>/xulysort?sortBy=<%=request.getParameter("sortBy")%>&sortName=name&page=<%=request.getParameter("page")%>&maxPageItem=<%=request.getParameter("maxPageItem")%>&name=sname"><i class="fa fa-sort"></i></a> </th>
+                                            <th>Danh mục &nbsp;&nbsp; <a href="<%=request.getContextPath()%>/xulysort?sortBy=<%=request.getParameter("sortBy")%>&sortName=cat_id&page=<%=request.getParameter("page")%>&maxPageItem=<%=request.getParameter("maxPageItem")%>&name=sname"><i class="fa fa-sort"></i></a></th>
+                                            <th>Lượt đọc &nbsp;&nbsp; <a href="<%=request.getContextPath()%>/xulysort?sortBy=<%=request.getParameter("sortBy")%>&sortName=counter&page=<%=request.getParameter("page")%>&maxPageItem=<%=request.getParameter("maxPageItem")%>&name=sname"><i class="fa fa-sort"></i></a></th>
+                                            <th>Hình ảnh </th>
                                             <th width="160px">Chức năng</th>
                                         </tr>
                                     </thead>
@@ -66,14 +66,17 @@
                                         </tr>
                                     <%
                                             }
-                                        }
-                                    %>
+                                            %>
+
                                     </tbody>
                                 </table>
                                 <div class="row">
                                     <div class="col-sm-6">
-                                        <div class="dataTables_info" id="dataTables-example_info" style="margin-top:27px">Hiển thị từ 1 đến 5 của 24 truyện</div>
+                                        <div class="dataTables_info" id="dataTables-example_info" style="margin-top:27px">Hiển thị từ 1 đến <%=songModel.getMaxPageItem()%> của <%=songModel.getTotalItem()%> bài hát</div>
                                     </div>
+                                    <%
+                                        }
+                                    %>
                                     <div class="col-sm-6" style="text-align: right;">
                                         <div class="dataTables_paginate paging_simple_numbers" id="dataTables-example_paginate">
                                             <ul class="pagination" id="pagination"></ul>
